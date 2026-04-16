@@ -10,3 +10,10 @@ As students, we believe we can help by creating a web application that supports 
 Project Idea:
 
 - Our project is a single-page web application that aims to support students by:
+
+Group Members:
+- Borata, Shannia S.
+- Casis, Kristelle G.
+
+Section: 
+- IDB4
