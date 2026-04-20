@@ -1,4 +1,27 @@
-<app-navbar></app-navbar>
-<main class="container container-padding">
-	<router-outlet></router-outlet>
-</main>
+<header class="site-header">
+  <div class="header-inner">
+    <a routerLink="/" class="brand" aria-label="SDG 4 Home">
+      <span class="brand__num">4</span>
+      <span class="brand__name">Quality Education</span>
+    </a>
+    <nav class="site-nav" aria-label="Main navigation">
+      <a routerLink="/"          routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">Home</a>
+      <a routerLink="/dashboard" routerLinkActive="active">Dashboard</a>
+      <a routerLink="/about"     routerLinkActive="active">About</a>
+    </nav>
+  </div>
+</header>
+
+<router-outlet />
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <p>
+      Project for <strong>APPDEV1</strong> &mdash; SDG 4 Quality Education Project &middot;
+      Data sourced from the <a href="https://data.worldbank.org" target="_blank" rel="noopener">World Bank Open Data API</a>
+    </p>
+    <p class="footer-un">
+      Part of the United Nations 2030 Agenda for Sustainable Development
+    </p>
+  </div>
+</footer>
