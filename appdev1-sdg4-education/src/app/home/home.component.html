@@ -1,6 +1,198 @@
-<div class="py-4">
-  <h1 class="display-5">Welcome</h1>
-  <p class="lead">This is the home page of the application. Use the navigation bar to visit other pages.</p>
-  <hr>
-  <p>Try the <a routerLink="/dashboard">Dashboard</a> or <a routerLink="/about">About</a> pages.</p>
-</div>
+<!-- ============================================================
+     SDG 4 — Quality Education  |  Home Page
+     Color palette: #C5192D (red), #E2231A (bright red), #FFFFFF (white)
+     ============================================================ -->
+
+<main class="sdg-home">
+
+  <!-- ── HERO ── -->
+  <section class="hero">
+    <div class="hero__overlay" aria-hidden="true"></div>
+    <div class="hero__content container">
+
+      <!-- SDG 4 Badge -->
+      <div class="sdg-badge" aria-label="SDG Goal 4">
+        <img
+          src="app/images/SDG4-QualityEducation.png"
+          alt="United Nations Sustainable Development Goal 4 — Quality Education logo"
+          class="sdg-badge__img"
+          width="120"
+          height="120"
+        />
+        <div class="sdg-badge__text">
+          <span class="sdg-badge__number">4</span>
+          <span class="sdg-badge__label">QUALITY<br>EDUCATION</span>
+        </div>
+      </div>
+
+      <div class="hero__copy">
+        <h1 class="hero__title">
+          Ensure inclusive and equitable<br>
+          <em>quality education</em> for all
+        </h1>
+        <p class="hero__sub">
+          Exploring United Nations Sustainable Development Goal&nbsp;4 —
+          tracking global literacy, access, and lifelong learning.
+        </p>
+        <a routerLink="/dashboard" class="btn btn--primary">Explore Dashboard</a>
+        <a routerLink="/about" class="btn btn--ghost">Learn More</a>
+      </div>
+
+    </div>
+
+    <!-- decorative red strip at bottom like SDG brand bar -->
+    <div class="hero__bar" aria-hidden="true"></div>
+  </section>
+
+  <!-- ── SDG PHOTO GALLERY ── -->
+  <section class="gallery section" aria-label="Quality Education in action">
+    <div class="container">
+      <h2 class="section-title">Education Changes Lives</h2>
+      <p class="section-sub">
+        Access to quality education empowers individuals, reduces inequality,
+        and drives sustainable development worldwide.
+      </p>
+      <div class="gallery__grid">
+        <figure class="gallery__card gallery__card--wide">
+          <img
+            src="assets/images/education-classroom.jpg"
+            alt="Children sitting in a bright classroom, engaged in learning"
+            class="gallery__img"
+            loading="lazy"
+          />
+          <figcaption class="gallery__caption">Inclusive classrooms</figcaption>
+        </figure>
+        <figure class="gallery__card">
+          <img
+            src="assets/images/education-girls.jpg"
+            alt="Girls studying together with books and pencils"
+            class="gallery__img"
+            loading="lazy"
+          />
+          <figcaption class="gallery__caption">Gender equity in education</figcaption>
+        </figure>
+        <figure class="gallery__card">
+          <img
+            src="assets/images/education-teacher.jpg"
+            alt="A teacher guiding a student through a lesson"
+            class="gallery__img"
+            loading="lazy"
+          />
+          <figcaption class="gallery__caption">Quality teaching</figcaption>
+        </figure>
+        <figure class="gallery__card">
+          <img
+            src="assets/images/education-digital.jpg"
+            alt="Students using laptops and tablets in a modern school"
+            class="gallery__img"
+            loading="lazy"
+          />
+          <figcaption class="gallery__caption">Digital learning access</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── WORLD BANK LIVE DATA ── -->
+  <section class="data-section section" aria-live="polite" aria-atomic="true">
+    <div class="container">
+      <h2 class="section-title">Adult Literacy Rates</h2>
+      <p class="section-sub">
+        Live data from the <strong>World Bank Open Data API</strong> — adult literacy rate
+        (% of people ages 15+) by country, most recent available year.
+      </p>
+
+      <!-- Loading state -->
+      @if (isLoading()) {
+        <div class="state-card state-card--loading" role="status">
+          <div class="spinner" aria-hidden="true"></div>
+          <p>Fetching education data from World Bank&hellip;</p>
+        </div>
+      }
+
+      <!-- Error state -->
+      @if (hasError() && !isLoading()) {
+        <div class="state-card state-card--error" role="alert">
+          <span class="state-icon" aria-hidden="true">&#9888;</span>
+          <p>{{ errorMessage() }}</p>
+          <button class="btn btn--primary" (click)="retry()">Retry</button>
+        </div>
+      }
+
+      <!-- Data table -->
+      @if (!isLoading() && !hasError() && facts().length > 0) {
+        <div class="table-wrap">
+          <table class="data-table" aria-label="Adult literacy rates by country">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Country</th>
+                <th scope="col">Literacy Rate</th>
+                <th scope="col">Year</th>
+                <th scope="col">Source</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (fact of facts(); track fact.id) {
+                <tr>
+                  <td class="td--num">{{ fact.id }}</td>
+                  <td><strong>{{ fact.country }}</strong></td>
+                  <td>
+                    <div class="bar-cell">
+                      <div
+                        class="bar"
+                        [style.width.%]="fact.value"
+                        [attr.aria-label]="fact.value + fact.unit"
+                      ></div>
+                      <span class="bar-label">{{ fact.value }}{{ fact.unit }}</span>
+                    </div>
+                  </td>
+                  <td>{{ fact.year }}</td>
+                  <td class="td--source">{{ fact.source }}</td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+        <p class="data-note">
+          Showing {{ totalFacts() }} countries &middot;
+          Data via <a href="https://data.worldbank.org" target="_blank" rel="noopener">World Bank Open Data</a>
+        </p>
+      }
+    </div>
+  </section>
+
+  <!-- ── SDG 4 TARGETS ── -->
+  <section class="targets section" aria-label="SDG 4 key targets">
+    <div class="container">
+      <h2 class="section-title">Key Targets by 2030</h2>
+      <div class="targets__grid">
+        <article class="target-card">
+          <div class="target-card__number" aria-hidden="true">4.1</div>
+          <h3 class="target-card__title">Free primary &amp; secondary education</h3>
+          <p class="target-card__body">Ensure all girls and boys complete free, equitable,
+            and quality primary and secondary education.</p>
+        </article>
+        <article class="target-card">
+          <div class="target-card__number" aria-hidden="true">4.2</div>
+          <h3 class="target-card__title">Early childhood development</h3>
+          <p class="target-card__body">Ensure access to quality early childhood development,
+            care, and pre-primary education for all children.</p>
+        </article>
+        <article class="target-card">
+          <div class="target-card__number" aria-hidden="true">4.3</div>
+          <h3 class="target-card__title">Technical &amp; vocational access</h3>
+          <p class="target-card__body">Ensure equal access for all to affordable and
+            quality technical, vocational, and tertiary education.</p>
+        </article>
+        <article class="target-card">
+          <div class="target-card__number" aria-hidden="true">4.6</div>
+          <h3 class="target-card__title">Universal literacy &amp; numeracy</h3>
+          <p class="target-card__body">Ensure all youth and substantial adults achieve
+            literacy and numeracy regardless of gender.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+</main>

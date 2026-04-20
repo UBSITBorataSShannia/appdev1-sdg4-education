@@ -1,2 +1,412 @@
-:host { display: block; }
-.lead { color: #333; }
+/* ============================================================
+   SDG 4 — Quality Education  |  Home Component Styles
+   Brand colors: #C5192D (UN SDG 4 red), #FFFFFF, #1A1A1A
+   ============================================================ */
+
+/* ── Reset helpers ─────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; }
+figure { margin: 0; }
+img    { display: block; max-width: 100%; }
+
+/* ── Root ──────────────────────────────────────────────────── */
+.sdg-home {
+  font-family: 'Source Sans Pro', 'Helvetica Neue', Arial, sans-serif;
+  color: #1A1A1A;
+  background: #FFFFFF;
+}
+
+/* ── Layout ────────────────────────────────────────────────── */
+.container {
+  max-width: 1120px;
+  margin-inline: auto;
+  padding-inline: 1.5rem;
+}
+
+.section {
+  padding-block: 5rem;
+}
+
+.section-title {
+  font-size: clamp(1.6rem, 3vw, 2.4rem);
+  font-weight: 700;
+  color: #1A1A1A;
+  margin: 0 0 .75rem;
+  text-align: center;
+  letter-spacing: -.02em;
+}
+
+.section-sub {
+  text-align: center;
+  max-width: 640px;
+  margin-inline: auto;
+  color: #5C5B58;
+  font-size: 1.05rem;
+  line-height: 1.7;
+  margin-bottom: 3rem;
+}
+
+/* ── Buttons ───────────────────────────────────────────────── */
+.btn {
+  display: inline-block;
+  padding: .75rem 1.75rem;
+  border-radius: 4px;
+  font-size: .95rem;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: background .18s, color .18s, transform .1s;
+}
+
+.btn--primary {
+  background: #C5192D;
+  color: #FFFFFF;
+  border-color: #C5192D;
+}
+.btn--primary:hover  { background: #9B1422; border-color: #9B1422; }
+.btn--primary:active { transform: scale(.97); }
+
+.btn--ghost {
+  background: transparent;
+  color: #FFFFFF;
+  border-color: rgba(255,255,255,.6);
+  margin-left: .75rem;
+}
+.btn--ghost:hover { background: rgba(255,255,255,.12); }
+
+/* ── Hero ──────────────────────────────────────────────────── */
+.hero {
+  position: relative;
+  background-color: #C5192D;
+  background-image: repeating-linear-gradient(
+    -55deg,
+    rgba(0,0,0,.04) 0px,
+    rgba(0,0,0,.04) 1px,
+    transparent 1px,
+    transparent 12px
+  );
+  color: #FFFFFF;
+  padding-block: 5rem 4.5rem;
+}
+
+.hero__overlay {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 70% 50%, rgba(155,20,34,.55) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.hero__content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: 3.5rem;
+}
+
+@media (max-width: 768px) {
+  .hero__content {
+    flex-direction: column;
+    text-align: center;
+  }
+}
+
+.hero__copy { flex: 1; }
+
+.hero__title {
+  font-size: clamp(1.8rem, 4vw, 3rem);
+  font-weight: 800;
+  line-height: 1.2;
+  margin: 0 0 1.25rem;
+  letter-spacing: -.025em;
+}
+
+.hero__title em {
+  font-style: normal;
+  text-decoration: underline;
+  text-decoration-color: rgba(255,255,255,.5);
+  text-underline-offset: 5px;
+}
+
+.hero__sub {
+  font-size: 1.1rem;
+  line-height: 1.7;
+  margin: 0 0 2rem;
+  color: rgba(255,255,255,.88);
+  max-width: 500px;
+}
+
+.hero__bar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 6px;
+  background: repeating-linear-gradient(
+    90deg,
+    #E5243B 0%, #DDA63A 14.28%, #4C9F38 28.57%,
+    #C5192D 42.86%, #FF3A21 57.14%, #26BDE2 71.43%,
+    #FCC30B 85.71%, #A21942 100%
+  );
+}
+
+/* ── SDG Badge ─────────────────────────────────────────────── */
+.sdg-badge {
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: .75rem;
+}
+
+.sdg-badge__img {
+  width: 130px;
+  height: 130px;
+  object-fit: contain;
+  border-radius: 8px;
+  background: #FFFFFF;
+  padding: .5rem;
+  box-shadow: 0 0 0 3px rgba(255,255,255,.25);
+}
+
+.sdg-badge__text {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  background: rgba(255,255,255,.15);
+  border: 1px solid rgba(255,255,255,.3);
+  border-radius: 4px;
+  padding: .4rem .9rem;
+}
+
+.sdg-badge__number {
+  font-size: 2.2rem;
+  font-weight: 900;
+  line-height: 1;
+}
+
+.sdg-badge__label {
+  font-size: .65rem;
+  font-weight: 700;
+  letter-spacing: .06em;
+  line-height: 1.3;
+}
+
+/* ── Photo Gallery ─────────────────────────────────────────── */
+.gallery { background: #F4F3F1; }
+
+.gallery__grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: 220px;
+}
+
+@media (max-width: 900px) {
+  .gallery__grid {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: 180px 180px;
+  }
+}
+
+@media (max-width: 520px) {
+  .gallery__grid {
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(4, 200px);
+  }
+}
+
+.gallery__card {
+  border-radius: 14px;
+  overflow: hidden;
+  position: relative;
+}
+
+.gallery__card--wide { grid-column: span 2; }
+
+.gallery__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform .4s ease;
+}
+
+.gallery__card:hover .gallery__img { transform: scale(1.04); }
+
+.gallery__caption {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: .6rem 1rem;
+  background: linear-gradient(transparent, rgba(26,26,26,.72));
+  color: #FFFFFF;
+  font-size: .82rem;
+  font-weight: 600;
+  letter-spacing: .03em;
+}
+
+/* ── Data Table Section ────────────────────────────────────── */
+.data-section { background: #FFFFFF; }
+
+.table-wrap {
+  overflow-x: auto;
+  border: 1px solid #D0CEC8;
+  border-radius: 14px;
+}
+
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: .92rem;
+}
+
+.data-table thead { background: #C5192D; color: #FFFFFF; }
+
+.data-table thead th {
+  padding: .9rem 1rem;
+  text-align: left;
+  font-weight: 700;
+  font-size: .82rem;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.data-table tbody tr {
+  border-bottom: 1px solid #F4F3F1;
+  transition: background .15s;
+}
+.data-table tbody tr:last-child { border-bottom: none; }
+.data-table tbody tr:hover      { background: #F5D0D4; }
+
+.data-table td {
+  padding: .8rem 1rem;
+  vertical-align: middle;
+}
+
+.td--num    { color: #5C5B58; font-variant-numeric: tabular-nums; }
+.td--source { font-size: .8rem; color: #5C5B58; }
+
+/* ── Progress Bar cells ────────────────────────────────────── */
+.bar-cell {
+  display: flex;
+  align-items: center;
+  gap: .75rem;
+  min-width: 160px;
+}
+
+.bar {
+  height: 8px;
+  background: #C5192D;
+  border-radius: 99px;
+  flex-shrink: 0;
+  max-width: 120px;
+  transition: width .5s ease;
+}
+
+.bar-label {
+  font-variant-numeric: tabular-nums;
+  font-size: .88rem;
+  font-weight: 600;
+  color: #1A1A1A;
+  white-space: nowrap;
+}
+
+.data-note {
+  margin-top: 1rem;
+  font-size: .82rem;
+  color: #5C5B58;
+  text-align: right;
+}
+.data-note a { color: #C5192D; text-underline-offset: 3px; }
+
+/* ── State cards (loading / error) ────────────────────────── */
+.state-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  padding: 3rem 2rem;
+  border-radius: 14px;
+  text-align: center;
+  font-size: 1rem;
+  color: #5C5B58;
+}
+
+.state-card--loading {
+  border: 1px dashed #D0CEC8;
+  background: #F4F3F1;
+}
+
+.state-card--error {
+  border: 1px solid #F5D0D4;
+  background: #FDF3F4;
+  color: #9B1422;
+}
+
+.spinner {
+  width: 36px;
+  height: 36px;
+  border: 3px solid #D0CEC8;
+  border-top-color: #C5192D;
+  border-radius: 50%;
+  animation: spin .8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.state-icon {
+  font-size: 2rem;
+  color: #C5192D;
+}
+
+/* ── Targets Grid ──────────────────────────────────────────── */
+.targets { background: #F4F3F1; }
+
+.targets__grid {
+  display: grid;
+  gap: 1.25rem;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+}
+
+.target-card {
+  background: #FFFFFF;
+  border-radius: 14px;
+  border: 1px solid #D0CEC8;
+  padding: 1.75rem 1.5rem;
+  transition: box-shadow .2s, transform .2s;
+}
+
+.target-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(197,25,45,.12);
+}
+
+.target-card__number {
+  display: inline-block;
+  background: #C5192D;
+  color: #FFFFFF;
+  font-size: 1.1rem;
+  font-weight: 800;
+  padding: .2rem .65rem;
+  border-radius: 4px;
+  margin-bottom: 1rem;
+  letter-spacing: .02em;
+}
+
+.target-card__title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  margin: 0 0 .65rem;
+  color: #1A1A1A;
+}
+
+.target-card__body {
+  font-size: .9rem;
+  line-height: 1.65;
+  color: #5C5B58;
+  margin: 0;
+}
