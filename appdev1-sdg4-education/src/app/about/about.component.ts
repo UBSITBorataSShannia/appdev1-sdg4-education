@@ -1,8 +1,13 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
-import { EducationService } from '../../services/education.service';
-import { Sdg4Target } from '../../models/education-resource.model';
+import { EducationService } from '../services/education.service';
+interface Sdg4Target {
+  id: string;
+  title: string;
+  description: string;
+  icon: string;
+} 
 
 @Component({
   selector: 'app-about',

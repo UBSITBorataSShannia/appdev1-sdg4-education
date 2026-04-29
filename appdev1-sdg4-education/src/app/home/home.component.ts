@@ -1,7 +1,7 @@
 import { Component, OnInit, signal, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { EducationApiService, EducationFact } from '../education.api.service';
+import { EducationApiService, EducationFact } from '../services/education.api.service';
 @Component({
   selector: 'app-home',
   standalone: true,
