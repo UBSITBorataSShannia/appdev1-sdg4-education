@@ -1,3 +1,3 @@
 export const HOME_CONFIG = {
-  title: 'Home'
+  title: 'SDG 4 — Quality Education'
 };

@@ -1,4 +1,156 @@
-<div class="py-4">
-  <h2 class="h3">About</h2>
-  <p>This app demonstrates simple routing and Bootstrap-based styling.</p>
-</div>
+<!-- ======================================================
+     ABOUT PAGE — SDG 4: QUALITY EDUCATION
+     Uses async pipe for all API data (no .subscribe() in TS)
+     Loading state toggled via isLoading$ observable
+     ====================================================== -->
+
+<!-- HERO SECTION -->
+<section class="about-hero">
+  <div class="hero-badge">UN Sustainable Development Goal</div>
+  <div class="hero-number">4</div>
+  <h1 class="hero-title">Quality Education</h1>
+  <p class="hero-tagline">
+    Ensure inclusive and equitable quality education and promote lifelong learning opportunities for all.
+  </p>
+  <div class="hero-stripe"></div>
+</section>
+
+<!-- MISSION SECTION -->
+<section class="mission-section container">
+  <div class="mission-card">
+    <div class="mission-icon">🎯</div>
+    <div>
+      <h2>Our Mission</h2>
+      <p>
+        This portal is dedicated to advancing <strong>SDG 4 — Quality Education</strong>, one of the 17 United
+        Nations Sustainable Development Goals. We believe that education is the foundation of human
+        development and the key to unlocking every other goal. By providing access to open educational
+        resources, global data, and community connections, we aim to make quality education a reality
+        for every learner — regardless of geography, gender, or socioeconomic background.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- GLOBAL STATS BANNER -->
+<section class="stats-section">
+  <div class="container stats-grid">
+    @for (stat of stats; track stat.value) {
+      <div class="stat-card">
+        <span class="stat-icon">{{ stat.icon }}</span>
+        <span class="stat-value">{{ stat.value }}</span>
+        <span class="stat-label">{{ stat.label }}</span>
+      </div>
+    }
+  </div>
+</section>
+
+<!-- SDG 4 TARGETS -->
+<section class="targets-section container">
+  <h2 class="section-title">
+    <span class="section-badge">Targets</span>
+    SDG 4 Key Targets
+  </h2>
+  <p class="section-subtitle">
+    Seven specific targets guide the global effort to achieve quality education for all by 2030.
+  </p>
+
+  <div class="targets-grid">
+    @for (target of sdg4Targets; track target.id) {
+      <div class="target-card">
+        <div class="target-header">
+          <span class="target-icon">{{ target.icon }}</span>
+          <span class="target-id">Target {{ target.id }}</span>
+        </div>
+        <h3 class="target-title">{{ target.title }}</h3>
+        <p class="target-desc">{{ target.description }}</p>
+      </div>
+    }
+  </div>
+</section>
+
+<!-- COUNTRIES IN ASIA — API DATA with async pipe + loading state -->
+<section class="countries-section">
+  <div class="container">
+    <h2 class="section-title">
+      <span class="section-badge">Live Data</span>
+      Education Landscape in Asia
+    </h2>
+    <p class="section-subtitle">
+      Explore countries across Asia where SDG 4 is being actively pursued.
+      Data fetched live from the REST Countries API.
+    </p>
+
+    <!-- ✅ LOADING STATE — shown while API request is in progress -->
+    @if (isLoading$ | async) {
+      <div class="loading-container">
+        <div class="spinner"></div>
+        <p class="loading-text">Fetching country data...</p>
+      </div>
+    }
+
+    <!-- ✅ ASYNC PIPE — no .subscribe() in component -->
+    @if (countries$ | async; as countries) {
+      @if (countries.length === 0 && !(isLoading$ | async)) {
+        <div class="empty-state">
+          <span>🌐</span>
+          <p>No country data available at the moment.</p>
+        </div>
+      }
+
+      <div class="countries-grid">
+        @for (country of countries; track country.name.common) {
+          <div class="country-card">
+            <img
+              [src]="country.flags.png"
+              [alt]="country.flags.alt || country.name.common + ' flag'"
+              class="country-flag"
+              loading="lazy"
+            />
+            <div class="country-info">
+              <h4 class="country-name">{{ country.name.common }}</h4>
+              <p class="country-capital">
+                📍 {{ country.capital?.[0] || 'N/A' }}
+              </p>
+              <p class="country-population">
+                👥 {{ country.population | number }}
+              </p>
+              <p class="country-languages">
+                🗣️ {{ getLanguages(country.languages) }}
+              </p>
+            </div>
+          </div>
+        }
+      </div>
+    }
+  </div>
+</section>
+
+<!-- WHAT WE DO SECTION -->
+<section class="what-we-do container">
+  <h2 class="section-title">
+    <span class="section-badge">Portal</span>
+    What This Portal Offers
+  </h2>
+
+  <div class="features-grid">
+    <div class="feature-card">
+      <div class="feature-icon" style="background: #fff0f0;">📚</div>
+      <h3>Open Resources</h3>
+      <p>Browse thousands of freely accessible books and learning materials curated for quality education.</p>
+      <a routerLink="/resources" class="feature-link">Explore Resources →</a>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon" style="background: #fff8e1;">🌍</div>
+      <h3>Global Data</h3>
+      <p>Access live educational statistics and country profiles to understand the state of education worldwide.</p>
+      <a routerLink="/resources" class="feature-link">View Data →</a>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon" style="background: #f0fff4;">🤝</div>
+      <h3>Community</h3>
+      <p>Connect with educators, students, and advocates who are working toward quality education for all.</p>
+      <a routerLink="/contact" class="feature-link">Get Involved →</a>
+    </div>
+  </div>
+</section>
