@@ -1,3 +1,3 @@
 export const DASHBOARD_CONFIG = {
-  title: 'Dashboard'
+  title: 'Dashboard — SDG 4'
 };

@@ -1,3 +1,3 @@
 export const ABOUT_CONFIG = {
-  title: 'About'
+  title: 'About — SDG 4'
 };
