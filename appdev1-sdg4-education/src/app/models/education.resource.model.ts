@@ -11,13 +11,13 @@ export interface OpenLibraryDoc {
   edition_count?: number;
   ia?: string[];
 }
-
+ 
 export interface OpenLibraryResponse {
   numFound: number;
   start: number;
   docs: OpenLibraryDoc[];
 }
-
+ 
 // Model for REST Countries API (education statistics per country)
 export interface Country {
   name: {
@@ -34,7 +34,7 @@ export interface Country {
   languages?: { [key: string]: string };
   capital?: string[];
 }
-
+ 
 // Model for SDG4 Goal/Target
 export interface Sdg4Target {
   id: string;
