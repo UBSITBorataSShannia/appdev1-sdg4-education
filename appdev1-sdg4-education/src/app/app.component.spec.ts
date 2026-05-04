@@ -1,11 +1,12 @@
 /// <reference types="jasmine" />
 import { TestBed } from '@angular/core/testing';
+import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
 
 describe('AppComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AppComponent],
+      imports: [AppComponent, RouterTestingModule],
     }).compileComponents();
   });
 
@@ -21,10 +22,10 @@ describe('AppComponent', () => {
     expect(app.title).toEqual('appdev1-sdg4-education');
   });
 
-  it('should render title', () => {
+  it('should render the brand text', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, appdev1-sdg4-education');
+    expect(compiled.querySelector('.brand__name')?.textContent).toContain('Quality Education');
   });
 });

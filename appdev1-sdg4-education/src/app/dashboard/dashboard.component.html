@@ -1,4 +1,254 @@
-<div class="py-4">
-  <h2 class="h3">Dashboard</h2>
-  <p>Welcome to the dashboard. Replace this with real content.</p>
+﻿<!-- ══════════════════════════════════════════════════════════════
+     DASHBOARD — SDG 4: QUALITY EDUCATION
+     All API data consumed via async pipe. No .subscribe() in TS.
+     ══════════════════════════════════════════════════════════════ -->
+
+<!-- ── DASHBOARD HEADER ──────────────────────────────────────────── -->
+<div class="dash-header">
+  <div class="dash-header-left">
+    <div class="dash-badge">SDG 4 · Quality Education</div>
+    <h1 class="dash-title">Education Dashboard</h1>
+    <p class="dash-subtitle">
+      Real-time global data on learning outcomes, literacy, and progress toward SDG 4 targets.
+    </p>
+  </div>
+  <div class="dash-header-right">
+    <div class="dash-goal-badge">
+      <span class="goal-number">4</span>
+      <span class="goal-text">QUALITY<br>EDUCATION</span>
+    </div>
+  </div>
 </div>
+
+<!-- ── STAT CARDS ─────────────────────────────────────────────────── -->
+<section class="section container">
+  <div class="stat-grid">
+    <div *ngFor="let card of statCards" class="stat-card stat-card--{{ card.accent }}">
+      <div class="stat-icon">{{ card.icon }}</div>
+      <div class="stat-body">
+        <div class="stat-value">{{ card.value }}</div>
+        <div class="stat-label">{{ card.label }}</div>
+        <div class="stat-sub">{{ card.sub }}</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── TAB NAVIGATION ─────────────────────────────────────────────── -->
+<section class="section container">
+  <div class="tab-bar">
+    <button
+      class="tab-btn"
+      [class.tab-btn--active]="activeTab() === 'overview'"
+      (click)="setTab('overview')">
+      📊 Overview
+    </button>
+    <button
+      class="tab-btn"
+      [class.tab-btn--active]="activeTab() === 'books'"
+      (click)="setTab('books')">
+      📚 Featured Books
+    </button>
+    <button
+      class="tab-btn"
+      [class.tab-btn--active]="activeTab() === 'countries'"
+      (click)="setTab('countries')">
+      🌍 Country Data
+    </button>
+  </div>
+
+  <!-- ── TAB: OVERVIEW ─────────────────────────────────────────────── -->
+  <ng-container *ngIf="activeTab() === 'overview'">
+    <div class="tab-panel">
+      <div class="panel-grid">
+        <div class="panel-card panel-card--wide">
+          <h2 class="panel-title">
+            <span class="panel-icon">🎯</span> SDG 4 Target Progress
+          </h2>
+          <p class="panel-desc">Estimated global progress toward each SDG 4 sub-target as of 2024.</p>
+
+          <div class="progress-list">
+            <div *ngFor="let goal of goalProgress" class="progress-item">
+              <div class="progress-header">
+                <span class="progress-id">{{ goal.id }}</span>
+                <span class="progress-label">{{ goal.label }}</span>
+                <span class="progress-pct" [style.color]="getProgressColor(goal.progress)">
+                  {{ goal.progress }}%
+                </span>
+              </div>
+              <div class="progress-track">
+                <div
+                  class="progress-fill"
+                  [style.width]="getProgressBarWidth(goal.progress)"
+                  [style.background]="goal.color">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Quick Links -->
+        <div class="panel-card">
+          <h2 class="panel-title">
+            <span class="panel-icon">🔗</span> Quick Navigation
+          </h2>
+          <div class="quick-links">
+            <a *ngFor="let link of quickLinks" [routerLink]="link.route" class="quick-link" [style.--link-accent]="link.accent">
+              <span class="quick-link-icon">{{ link.icon }}</span>
+              <div class="quick-link-body">
+                <span class="quick-link-title">{{ link.title }}</span>
+                <span class="quick-link-desc">{{ link.description }}</span>
+              </div>
+              <span class="quick-link-arrow">→</span>
+            </a>
+          </div>
+
+          <div class="fact-box">
+            <div class="fact-box-header">💡 Did You Know?</div>
+            <p>Every additional year of schooling increases an individual's earnings by about <strong>10%</strong>, yet over half a billion children still lack basic reading and math skills.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel-card mt-1">
+        <h2 class="panel-title">
+          <span class="panel-icon">🗺️</span> Countries in Asia — Subregion Breakdown
+        </h2>
+        <p class="panel-desc">Live data from the REST Countries API — count of countries per subregion.</p>
+
+        <div *ngIf="isLoadingCountries$ | async" class="loading-row">
+          <div class="spinner"></div>
+          <span>Loading country data...</span>
+        </div>
+
+        <div *ngIf="regionSummary$ | async as summary">
+          <div class="bar-chart">
+            <div *ngFor="let item of summary" class="bar-row">
+              <span class="bar-label">{{ item.region }}</span>
+              <div class="bar-track">
+                <div
+                  class="bar-fill"
+                  [style.width.%]="(item.count / getMaxCount(summary)) * 100">
+                </div>
+              </div>
+              <span class="bar-count">{{ item.count }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+
+  <!-- ── TAB: BOOKS ─────────────────────────────────────────────────── -->
+  <ng-container *ngIf="activeTab() === 'books'">
+    <div class="tab-panel">
+      <div class="search-row">
+        <input
+          type="text"
+          [(ngModel)]="searchQuery"
+          class="dash-search-input"
+          placeholder="Search education topics (e.g. 'literacy', 'STEM', 'inclusive education')..."
+          (keyup.enter)="onSearch()" />
+        <button class="dash-search-btn" (click)="onSearch()">Search</button>
+      </div>
+
+      <div *ngIf="isLoadingBooks$ | async" class="loading-row">
+        <div class="spinner"></div>
+        <span>Searching Open Library...</span>
+      </div>
+
+      <div *ngIf="books$ | async as books">
+        <p class="results-meta">{{ books.length }} results from Open Library API</p>
+
+        <div *ngIf="books.length === 0 && !(isLoadingBooks$ | async)" class="empty-state">
+          <span>🔍</span>
+          <p>No books found. Try a different search term.</p>
+        </div>
+
+        <div class="books-grid">
+          <div *ngFor="let book of books; trackBy: trackByKey" class="book-card">
+            <div class="book-cover-wrap">
+              <img
+                *ngIf="book.cover_i; else noCover"
+                [src]="getCoverUrl(book.cover_i)"
+                [alt]="book.title"
+                class="book-cover"
+                loading="lazy" />
+              <ng-template #noCover>
+                <div class="book-cover-placeholder">📖</div>
+              </ng-template>
+            </div>
+            <div class="book-meta">
+              <p class="book-title">{{ book.title }}</p>
+              <p class="book-author">{{ getAuthors(book.author_name) }}</p>
+              <p *ngIf="book.first_publish_year" class="book-year">{{ book.first_publish_year }}</p>
+              <span *ngIf="book.edition_count" class="book-tag">{{ book.edition_count }} editions</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+
+  <!-- ── TAB: COUNTRIES ────────────────────────────────────────────────── -->
+  <ng-container *ngIf="activeTab() === 'countries'">
+    <div class="tab-panel">
+      <div class="region-filter">
+        <span class="filter-label">Filter by region:</span>
+        <button
+          *ngFor="let region of regions"
+          class="region-btn"
+          [class.region-btn--active]="selectedRegion() === region"
+          (click)="loadRegion(region)">
+          {{ region }}
+        </button>
+      </div>
+
+      <div *ngIf="isLoadingCountries$ | async" class="loading-row">
+        <div class="spinner"></div>
+        <span>Fetching countries from REST Countries API...</span>
+      </div>
+
+      <div *ngIf="countries$ | async as countries">
+        <p class="results-meta">
+          {{ countries.length }} countries in <strong>{{ selectedRegion() }}</strong>
+        </p>
+
+        <div *ngIf="countries.length === 0 && !(isLoadingCountries$ | async)" class="empty-state">
+          <span>🌐</span>
+          <p>No country data available for this region.</p>
+        </div>
+
+        <div class="countries-grid">
+          <div *ngFor="let country of countries; trackBy: trackByName" class="country-card">
+            <img
+              [src]="country.flags.png"
+              [alt]="country.flags.alt || country.name.common"
+              class="country-flag"
+              loading="lazy" />
+            <div class="country-body">
+              <h4 class="country-name">{{ country.name.common }}</h4>
+              <p class="country-detail">📍 {{ country.capital?.[0] ?? 'N/A' }}</p>
+              <p class="country-detail">👥 {{ country.population | number }}</p>
+              <p class="country-detail country-langs">🗣️ {{ getLanguages(country.languages) }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+</section>
+
+<!-- ── BOTTOM BANNER ──────────────────────────────────────────────── -->
+<section class="cta-banner container">
+  <div class="cta-content">
+    <div class="cta-text">
+      <h3>Be Part of the Solution</h3>
+      <p>Quality education is a human right. Explore resources, connect with educators, and help advance SDG 4.</p>
+    </div>
+    <div class="cta-actions">
+      <a routerLink="/dashboard" class="cta-btn cta-btn--primary">Browse Resources</a>
+      <a routerLink="/contacts" class="cta-btn cta-btn--secondary">Get Involved</a>
+    </div>
+  </div>
+</section>
