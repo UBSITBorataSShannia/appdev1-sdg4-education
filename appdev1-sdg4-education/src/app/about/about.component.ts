@@ -1,8 +1,8 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
-import { EducationService } from '../../services/education.service';
-import { Sdg4Target } from '../../models/education-resource.model';
+import { EducationService } from 'src/app/services/education.service';
+import { Sdg4Target } from 'src/app/models/education-resource.model';
 
 @Component({
   selector: 'app-about',
