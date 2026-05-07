@@ -24,22 +24,22 @@ export class HomeComponent implements OnInit {
 
   galleryImages = [
     {
-      src: 'assets/images/education-classroom.svg',
+      src: 'assets/images/inclusive%20classrooms.webp',
       alt: 'Children sitting in a bright classroom, engaged in learning',
       caption: 'Inclusive classrooms'
     },
     {
-      src: 'assets/images/education-girls.svg',
+      src: 'assets/images/gender%20equity.webp',
       alt: 'Girls studying together with books and pencils',
       caption: 'Gender equity in education'
     },
     {
-      src: 'assets/images/education-teacher.svg',
+      src: 'assets/images/quality%20teaching.webp',
       alt: 'A teacher guiding a student through a lesson',
       caption: 'Quality teaching'
     },
     {
-      src: 'assets/images/education-digital.svg',
+      src: 'assets/images/digital%20learning.jpg',
       alt: 'Students using laptops and tablets in a modern school',
       caption: 'Digital learning access'
     }

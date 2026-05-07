@@ -2,7 +2,7 @@
 
 .contact-hero {
   background: linear-gradient(135deg, var(--sdg4-red), var(--sdg4-red-dark));
-  color: #fff;
+  color: #000000;
   padding: 4rem 2rem;
   text-align: center;
 }
@@ -12,7 +12,7 @@
 .contact-content { padding: 2.5rem 1.5rem; }
 
 .welcome-banner {
-  background: #fff8e1;
+  background: #b8d8ee;
   border: 1px solid var(--sdg4-gold);
   border-radius: 8px;
   padding: 1rem 1.5rem;

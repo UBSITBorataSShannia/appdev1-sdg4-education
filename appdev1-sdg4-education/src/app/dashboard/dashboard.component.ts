@@ -35,7 +35,7 @@ export interface QuickLink {
   standalone: true,
   imports: [CommonModule, RouterLink, FormsModule],
   templateUrl: './dashboard.component.html',
-  styleUrl: './dashboard.component.css'
+  styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
   private readonly educationService = inject(EducationService);

@@ -6,6 +6,11 @@
 
 <!-- HERO SECTION -->
 <section class="about-hero">
+  <img
+    class="hero-bg"
+    src="assets/images/quality%20education%20background.webp"
+    alt="Quality Education background"
+  />
   <div class="hero-badge">UN Sustainable Development Goal</div>
   <div class="hero-number">4</div>
   <h1 class="hero-title">Quality Education</h1>
@@ -57,7 +62,7 @@
 
   <div class="targets-grid">
     @for (target of sdg4Targets; track target.id) {
-      <div class="target-card">
+      <div class="target-card" [style.background-image]="'url(' + target.background + ')'">
         <div class="target-header">
           <span class="target-icon">{{ target.icon }}</span>
           <span class="target-id">Target {{ target.id }}</span>

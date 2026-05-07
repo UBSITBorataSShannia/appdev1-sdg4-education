@@ -8,7 +8,7 @@ import { AuthService } from '../services/auth.service';
   standalone: true,
   imports: [CommonModule, FormsModule],
   templateUrl: './contacts.component.html',
-  styleUrl: './contacts.component.css'
+  styleUrls: ['./contacts.component.css']
 })
 export class ContactsComponent {
   auth = inject(AuthService);
