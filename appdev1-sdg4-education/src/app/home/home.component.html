@@ -53,36 +53,36 @@
         and drives sustainable development worldwide.
       </p>
       <div class="gallery__grid">
-        <figure class="gallery__card gallery__card--wide">
+        <figure class="gallery__card gallery__card--wide" (click)="openGalleryLightbox(0)" role="button" tabindex="0" (keydown.enter)="openGalleryLightbox(0)" (keydown.space)="openGalleryLightbox(0)">
           <img
-            src="assets/images/education-classroom.jpg"
+            src="assets/images/education-classroom.svg"
             alt="Children sitting in a bright classroom, engaged in learning"
             class="gallery__img"
             loading="lazy"
           />
           <figcaption class="gallery__caption">Inclusive classrooms</figcaption>
         </figure>
-        <figure class="gallery__card">
+        <figure class="gallery__card" (click)="openGalleryLightbox(1)" role="button" tabindex="0" (keydown.enter)="openGalleryLightbox(1)" (keydown.space)="openGalleryLightbox(1)">
           <img
-            src="assets/images/education-girls.jpg"
+            src="assets/images/education-girls.svg"
             alt="Girls studying together with books and pencils"
             class="gallery__img"
             loading="lazy"
           />
           <figcaption class="gallery__caption">Gender equity in education</figcaption>
         </figure>
-        <figure class="gallery__card">
+        <figure class="gallery__card" (click)="openGalleryLightbox(2)" role="button" tabindex="0" (keydown.enter)="openGalleryLightbox(2)" (keydown.space)="openGalleryLightbox(2)">
           <img
-            src="assets/images/education-teacher.jpg"
+            src="assets/images/education-teacher.svg"
             alt="A teacher guiding a student through a lesson"
             class="gallery__img"
             loading="lazy"
           />
           <figcaption class="gallery__caption">Quality teaching</figcaption>
         </figure>
-        <figure class="gallery__card">
+        <figure class="gallery__card" (click)="openGalleryLightbox(3)" role="button" tabindex="0" (keydown.enter)="openGalleryLightbox(3)" (keydown.space)="openGalleryLightbox(3)">
           <img
-            src="assets/images/education-digital.jpg"
+            src="assets/images/education-digital.svg"
             alt="Students using laptops and tablets in a modern school"
             class="gallery__img"
             loading="lazy"
@@ -196,3 +196,5 @@
   </section>
 
 </main>
+
+<app-lightbox></app-lightbox>
