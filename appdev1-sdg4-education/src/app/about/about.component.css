@@ -15,6 +15,12 @@
 /* ── HERO ───────────────────────────────── */
 .about-hero {
   background: linear-gradient(135deg, var(--sdg4-red) 0%, var(--sdg4-red-dark) 100%);
+  background-image: 
+    linear-gradient(135deg, rgba(197, 25, 45, 0.75) 0%, rgba(155, 20, 34, 0.75) 100%),
+    url('/assets/images/about-hero-bg.svg');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
   color: var(--sdg4-white);
   text-align: center;
   padding: 5rem 2rem 4rem;

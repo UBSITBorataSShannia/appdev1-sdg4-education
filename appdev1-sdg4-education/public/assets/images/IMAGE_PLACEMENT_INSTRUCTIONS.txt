@@ -1,0 +1,13 @@
+Image Background for Hero Section
+===================================
+
+The about.component.css has been updated to reference 'assets/images/hero-background.jpg'
+
+Steps to complete:
+1. Save the provided image (children with SDG goals) as: hero-background.jpg
+2. Place it in: public/assets/images/
+
+The image will automatically be displayed as the background for the hero section (top part with "Quality Education" title).
+The background will NOT extend beyond the "Our Mission" section due to the section structure.
+
+The CSS overlay (rgba with 0.75 opacity) ensures text readability over the image.
